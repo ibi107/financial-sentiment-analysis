@@ -1,13 +1,20 @@
-import json
-import pandas as pd
+import numpy as np
+from transformers import BertTokenizer, BertForSequenceClassification
+from transformers import pipeline
 
 def main():
-    with open('../dataset/News_Category_Dataset_v3.json', 'r') as file:
-        json_data = json.load(file)
-    data = pd.json_normalize(json_data['data'])
+    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone', num_labels=3)
+    tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
 
-    print(data.head)
+    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
 
+    while True:
+        user_input = input("Sentence (or exit): ")
+        
+        if user_input.lower() == "exit":
+            break
+            
+        print(nlp(user_input))
 
 if __name__ == "__main__":
     main()

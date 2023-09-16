@@ -3,7 +3,7 @@ import pandas as pd
 def main():
     """ Split the unlabelled dataset so multiple people can help label it. """
 
-    id = 0
+    id = 1
     filename = f'splits/split{id}.csv'
     data = pd.read_csv(filename)
 
