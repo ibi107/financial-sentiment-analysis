@@ -7,17 +7,14 @@ def main():
     df.fillna('', inplace=True)
     df['text'] = df['headline'] + ' ' + df['short_description']
 
-    # Drop rows with missing data
     df.dropna(subset=['text'], inplace=True)
 
     X = df['text'].tolist()
 
-    # Load the Hugging Face FinBERT model
     finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone', num_labels=3)
     tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
 
-    # Encode labels back to (-1, 0, 1)
-    label_mapping = {0: -1, 1: 0, 2: 1}
+    label_mapping = {0: -1, 1: 0, 2: 1} # Encode labels back to (-1, 0, 1)
 
     new_df = pd.DataFrame(columns=['text', 'label'])
     for x in X:

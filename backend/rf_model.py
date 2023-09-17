@@ -13,14 +13,11 @@ def train_random_forest(df: pd.DataFrame):
 
     X_train, X_test, y_train, y_test = train_test_split(X, df['label'], test_size=0.2, random_state=42)
 
-    # Initialize and train the RandomForestClassifier
     rf_classifier = RandomForestClassifier(n_estimators=100, random_state=42)
     rf_classifier.fit(X_train, y_train)
 
-    # Make predictions on the testing set
     y_pred = rf_classifier.predict(X_test)
 
-    # Evaluate the model
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Accuracy: {accuracy:.2f}')
 
