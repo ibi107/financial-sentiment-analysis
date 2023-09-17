@@ -1,20 +1,20 @@
-import numpy as np
-from transformers import BertTokenizer, BertForSequenceClassification
-from transformers import pipeline
+import pandas as pd
+
+from rf_model import train_random_forest
 
 def main():
-    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone', num_labels=3)
-    tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+    df = pd.read_csv('./../dataset/labelled/split1.csv')
+    df.fillna('', inplace=True)
+    df['text'] = df['headline'] + ' ' + df['short_description']
 
-    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
+    bert_df = pd.read_csv('./../dataset/labelled/bert.csv')
 
-    while True:
-        user_input = input("Sentence (or exit): ")
-        
-        if user_input.lower() == "exit":
-            break
-            
-        print(nlp(user_input))
+    print("\nTraining model on self labelled data...")
+    train_random_forest(df)
+
+    print("\nTraining model on BERT labelled data...")
+    train_random_forest(bert_df)
+
 
 if __name__ == "__main__":
     main()
