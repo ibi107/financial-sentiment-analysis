@@ -1,9 +1,9 @@
 # Sentiment Analysis on Finance News
-
+A project to predict the tone (sentiment) of news headings in order to predict the market, dataset was self-labelled and comparisons were with yiyanghkust's finbert-tone model (HuggingFace): https://huggingface.co/yiyanghkust/finbert-tone .
 ## /backend
 
 ### ./main.py
-Loads labelled data (both self-labelled and FinBert-labelled) to train, handled by rf_model.py.
+Loads labelled data (both self-labelled and FinBert-labelled) to train, handled by rf_model.py .
 
 ### ./rf_model.py
 Loads Scikit-learn's Random Forest classifier to vectorise (using TF-IDF), split, and train each dataframe - also analyses its effectiveness using a confusion matrix, as well as comparing the accuracy of tested data against the model.
